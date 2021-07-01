@@ -1,98 +1,70 @@
 import React from 'react'
+import {useState,useEffect} from "react"
+
+
+
+
 
 export default function Home() {
+
+
+    const [data,setData] = useState([])
+
+    useEffect(()=>{
+
+      fetch("http://localhost:5000/allpost",{
+
+          method:"get",
+          headers:{
+             Authorization:"Bearer "+localStorage.getItem("jwt")
+          }
+        }
+      ).then(res=>res.json())
+      .then(result=>{
+        console.log(result)
+        setData(result.posts)
+      })
+
+
+
+
+
+    },[])
+
+
     return (
       <div className="home">
+        {
+           data.map(item=>{
 
-        <div className="card home-card">
+             return(
 
-             <h5>hichem</h5>
+              <div className="card home-card" key={item._id}>
 
-             <div className="card-image">
+              <h5>{item.postedBy.name}</h5>
+ 
+              <div className="card-image">
+ 
+                 <img src={item.photo}/>
+ 
+              </div>
+              <div className="card-content">
+                <i className="material-icons" style={{color:"red"}}>favorite</i>
+                <h6>{item.title}</h6>
+                <p>{item.body}</p>
+                <input type="text" placeholder="add a comment"/>
 
-                <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" />
+              </div>
+              </div>
 
-             </div>
+             )
 
+           })
 
-             <div className="card-content">
-
-             <i className="material-icons" style={{color:"red"}}>favorite</i>
-
-               <h6>title</h6>
-
-               <p>this is amazing post</p>
-
-               <input type="text" placeholder="add a comment"/>
-
-
-             </div>
-
-
-        </div>
-
-
-
-
-        <div className="card home-card">
-
-             <h5>hichem</h5>
-
-             <div className="card-image">
-
-                <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" />
-
-             </div>
-
-
-             <div className="card-content">
-
-
-             <i className="material-icons" style={{color:"red"}}>favorite</i>
-
-               <h6>title</h6>
-
-               <p>this is amazing post</p>
-
-               <input type="text" placeholder="add a comment"/>
-
-
-             </div>
-
-
-        </div>
-        
-        
-        
-        
-        <div className="card home-card">
-
-             <h5>hichem</h5>
-
-             <div className="card-image">
-
-                <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" />
-
-             </div>
-
-
-             <div className="card-content">
-
-               <i className="material-icons" style={{color:"red"}}>favorite</i>
-
-               <h6>title</h6>
-
-               <p>this is amazing post</p>
-
-               <input type="text" placeholder="add a comment"/>
-
-
-             </div>
-
+        }
 
         </div>
 
-
-      </div>
+       
     )
 }

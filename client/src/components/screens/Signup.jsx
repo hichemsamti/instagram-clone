@@ -4,6 +4,7 @@ import {useState} from "react"
 import M from "materialize-css"
 
 
+
 export default function Signup() {
     const history = useHistory()
     const [name,setName] = useState("")
@@ -81,7 +82,7 @@ export default function Signup() {
 
 
             <input 
-            type="text"
+            type="password"
             placeholder="password"
             value={password}
             onChange={(e)=>setPassword(e.target.value)}

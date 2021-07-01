@@ -1,6 +1,30 @@
 import React from 'react'
+import {useEffect,useState,useContext} from "react"
+import {UserContext} from "../../App"
 
 export default function Profile() {
+
+    const [mypics,setPics] = useState([])
+    const {state,dispatch} = useContext(UserContext)
+
+    useEffect(()=>{
+
+        fetch("http://localhost:5000/mypost",{
+            method:"get",
+            headers:{
+                "Authorization":"Bearer "+ localStorage.getItem("jwt")
+
+            }
+        }).then(res=>res.json())
+        .then(result=>{
+            setPics(result.mypost)
+        })
+
+
+
+
+
+    },[])
     return (
         <div style={{maxWidth:"550px", margin:"0px auto"}}>
 
@@ -23,7 +47,7 @@ export default function Profile() {
 
                   <div>
                  
-                  <h4>Hichem SAMTI</h4>
+                  <h4>{state?state.name:"loading"}</h4>
 
                   <div style={{display:"flex", justifyContent:"space-between", width:"110%"}}>
                       <h6>40 posts</h6>
@@ -38,11 +62,17 @@ export default function Profile() {
             </div>
 
             <div className="gallery">
-                <img className="item" src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""/>
-                <img className="item" src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""/>
-                <img className="item" src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""/>
-                <img className="item" src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""/>
-                <img className="item" src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""/>
+ 
+                 {
+                     mypics.map(item=>{
+                         return(
+                            <img  key={item._id} className="item" src={item.photo} alt={item.title}/>
+                         )
+                     })
+                 }
+
+
+      
 
 
 
