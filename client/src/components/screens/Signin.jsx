@@ -1,20 +1,23 @@
 import React from 'react'
 import {Link, useHistory} from "react-router-dom"
-import {useState} from "react"
+import {useState,useContext} from "react"
 import M from "materialize-css"
+import {UserContext} from '../../App'
 
 export default function Signup() {
+
+    const {state,dispatch} =useContext(UserContext)
     const history = useHistory()
     
     const [password,setPassword] = useState("")
     const [email,setEmail] = useState("")
     const PostData = () =>{
 
-      if(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+      
          
    
 
-        fetch("http://localhost:5000/signup",{
+        fetch("http://localhost:5000/signin",{
             method:"post",
             headers:{
                 "Content-Type":"application/json"
@@ -31,27 +34,25 @@ export default function Signup() {
             console.log(err)
         })
         .then(data=>{
+            console.log(data)
             if(data.error){
 
                 M.toast({html:data.error,classes:"#d32f2f red darken-2"})
             }
 
             else{
-
-                M.toast({html:data.message, classes:"#43a047 green darken-1"})
-                history.push('/signin')
+                localStorage.setItem("jwt",data.token)
+                localStorage.setItem("user",JSON.stringify(data.user))
+                dispatch({type:"USER",payload:data.user})
+                M.toast({html:"signed in", classes:"#43a047 green darken-1"})
+                history.push('/')
 
             }
         }).catch(err=>{
             console.log(err)
         })
 
-    }
-    else{
-
-        M.toast({html:"invalid email",classes:"#d32f2f red darken-2"})
-    }
-
+   
     }
 
     return (
@@ -59,17 +60,22 @@ export default function Signup() {
            <div className="card auth-card ">
                <h2>Instagram</h2>
                <input 
-               type="text"
-               placeholder="email"
-               />
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
+            />
 
 
-               <input 
-               type="text"
-               placeholder="password"
-               />
+            <input 
+            type="text"
+            placeholder="password"
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            />
         
-               <button className="btn waves-effect waves-light #64b5f6 blue lighten-2" >Login
+               <button className="btn waves-effect waves-light #64b5f6 blue lighten-2" 
+               onClick={PostData}>Login
                    
                </button>
 
