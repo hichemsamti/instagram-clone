@@ -155,6 +155,34 @@ export default function Home() {
 
   }
 
+
+
+  const deletePost = (postId)=>{
+
+     fetch("http://localhost:5000/deletepost/" + postId,{
+
+        method:"delete",
+        headers:{
+
+           Authorization:"Bearer "+ localStorage.getItem("jwt")
+
+        }
+
+
+
+     }).then(res=>res.json())
+     .then(result=>{
+       console.log(result)
+
+       const newData = data.filter(item=>{
+         return  item._id !== result._id
+       })
+
+       setData(newData)
+
+     })
+  }
+
     
 
 
@@ -168,7 +196,17 @@ export default function Home() {
 
               <div className="card home-card" key={item._id}>
 
-              <h5>{item.postedBy.name}</h5>
+              <h5>{item.postedBy.name}
+
+              {item.postedBy._id === state._id   &&  (<i class="material-icons" style={{float:"right"}}
+              
+              onClick={()=>deletePost(item._id)}
+              
+              >delete</i>)}
+
+              
+
+              </h5>
  
               <div className="card-image">
  
