@@ -9,7 +9,7 @@ import Signup from './components/screens/Signup'
 import CreatePost from './components/screens/CreatePost'
 import {useEffect,createContext,useReducer,useContext} from "react"
 import {reducer,initialState} from "./reducers/userReducer"
-
+import UserProfile from "./components/screens/UserProfile"
 
 
 export const UserContext = createContext()
@@ -57,7 +57,7 @@ function Routing () {
     </Route>
 
 
-   <Route path="/profile">
+   <Route exact path="/profile">
 
    <Profile/>
 
@@ -68,6 +68,14 @@ function Routing () {
    <Route path="/create">
 
    <CreatePost/>
+
+   </Route>
+
+
+
+   <Route path="/profile/:userid">
+
+   <UserProfile/>
 
    </Route>
 
