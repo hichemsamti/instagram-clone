@@ -24,10 +24,41 @@ export default function UserProfile() {
             console.log(result)
           
              setProfile(result)
-             console.log(userProfile.posts)
+             console.log(state)
         })
         .catch(err=>{console.log(err)})
      },[])
+
+
+    const  followUser =  () =>{
+        fetch("/follow",{
+            method:"put",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer " + localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                followId:userid
+
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+
+            dispatch({type:"UPDATE",payload:{
+                following:data.following,
+                followers:data.followers
+            }})
+            localStorage.setItem("user",JSON.stringify(data))
+
+            
+            
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
     return (
 
 
@@ -60,9 +91,13 @@ export default function UserProfile() {
 
                  <div style={{display:"flex", justifyContent:"space-between", width:"110%"}}>
                      <h6>{userProfile.posts.length} posts</h6>
-                     <h6>40 followers</h6>
-                     <h6>40 following</h6>
+                     <h6>{userProfile.user.followers.length} followers</h6>
+                     <h6>{userProfile.user.following.length} following</h6>
                  </div>
+
+                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" 
+                 onClick={followUser}
+                 >  Follow    </button>
 
            </div>
 
