@@ -50,9 +50,9 @@ export default function Profile() {
                   <h4>{state?state.name:"loading"}</h4>
 
                   <div style={{display:"flex", justifyContent:"space-between", width:"110%"}}>
-                      <h6>40 posts</h6>
-                      <h6>40 followers</h6>
-                      <h6>40 following</h6>
+                      <h6>{state?mypics.length:"loading"} posts</h6>
+                      <h6>{state?state.followers.length:"loading"} followers</h6>
+                      <h6>{state?state.following.length:"loading"} following</h6>
                   </div>
 
             </div>
