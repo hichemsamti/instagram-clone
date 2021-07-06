@@ -39,15 +39,21 @@ export default function Profile() {
                   <div>
 
                    <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
-                   src="https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt=""
+                   src={state ? state.pic : "loading"} alt=""
                    
                    />
+
+                  <button className="btn waves-effect waves-light #64b5f6 blue lighten-2"
+                  onClick={} >Update Picture
+
+                  </button>
 
                   </div>
 
                   <div>
                  
                   <h4>{state?state.name:"loading"}</h4>
+                  <h5>{state?state.email:"loading"}</h5>
 
                   <div style={{display:"flex", justifyContent:"space-between", width:"110%"}}>
                       <h6>{state?mypics.length:"loading"} posts</h6>

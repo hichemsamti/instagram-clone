@@ -28,6 +28,16 @@ const userSchema = new mongoose.Schema({
 
     },
 
+
+    pic:{
+
+      type:String,
+      default:"https://res.cloudinary.com/dnpkkxist/image/upload/v1625599130/like1_dqdbeb.png"
+
+    },
+
+
+
     followers:[
       {
         type:ObjectId,
