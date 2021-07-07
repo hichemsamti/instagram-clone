@@ -30,7 +30,7 @@ export default function UserProfile() {
              console.log(state)
         })
         .catch(err=>{console.log(err)})
-     },[])
+     },)
 
 
     const  followUser =  () =>{
