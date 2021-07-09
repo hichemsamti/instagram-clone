@@ -16,7 +16,7 @@ export default function Home() {
 
     useEffect(()=>{
 
-      fetch("http://localhost:5000/getsubpost",{
+      fetch("/getsubpost",{
 
           method:"get",
           headers:{
@@ -36,7 +36,7 @@ export default function Home() {
 
 
     const likePost =(id) =>{
-      fetch('http://localhost:5000/like',{
+      fetch('/like',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -78,7 +78,7 @@ export default function Home() {
 
 
     const unlikePost =(id) =>{
-      fetch('http://localhost:5000/unlike',{
+      fetch('/unlike',{
         method:"put",
         headers:{
           "Content-Type":"application/json",
@@ -119,7 +119,7 @@ export default function Home() {
 
   const makeComment = (text,postId )=>{
 
-    fetch("http://localhost:5000/comment",{
+    fetch("/comment",{
       method:"put",
       headers:{
         "Content-Type":"application/json",
@@ -160,7 +160,7 @@ export default function Home() {
 
   const deletePost = (postId)=>{
 
-     fetch("http://localhost:5000/deletepost/" + postId,{
+     fetch("/deletepost/" + postId,{
 
         method:"delete",
         headers:{

@@ -11,7 +11,7 @@ export default function Profile() {
 
     useEffect(()=>{
 
-        fetch("http://localhost:5000/mypost",{
+        fetch("/mypost",{
             method:"get",
             headers:{
                 "Authorization":"Bearer "+ localStorage.getItem("jwt")
@@ -50,7 +50,7 @@ export default function Profile() {
           
            dispatch({ type:'UPDATEPIC', payload:data.url})*/
 
-           fetch("http://localhost:5000/updatepic",{
+           fetch("/updatepic",{
 
            method:"put",
 
